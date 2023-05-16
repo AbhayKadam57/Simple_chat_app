@@ -3,6 +3,8 @@ import http, { METHODS } from "http";
 import cors from "cors";
 import { Server } from "socket.io";
 
+const PORT = process.env.PORT || 8000;
+
 const app = express();
 
 app.use(cors());
@@ -11,7 +13,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: [
+      "https://simple-chat-app-front.vercel.app",
+      "http://localhost:5173",
+    ],
     methods: ["GET", "POST"],
   },
 });
@@ -34,6 +39,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8001, () => {
-  console.log(`SERVER IS RUNNING AT PORT ${8001}`);
+server.listen(PORT, () => {
+  console.log(`SERVER IS RUNNING AT PORT ${PORT}`);
 });
