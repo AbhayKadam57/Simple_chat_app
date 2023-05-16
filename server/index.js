@@ -26,7 +26,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("send_message", (data) => {
-    console.log(data);
     socket.to(data.room).emit("receive_message", data);
   });
 
@@ -35,6 +34,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(8000, () => {
-  console.log(`SERVER IS RUNNING AT PORT ${8000}`);
+server.listen(8001, () => {
+  console.log(`SERVER IS RUNNING AT PORT ${8001}`);
 });

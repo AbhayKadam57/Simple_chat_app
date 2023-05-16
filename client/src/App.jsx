@@ -3,7 +3,7 @@ import styled from "styled-components";
 import io from "socket.io-client";
 import Chat from "./assets/Chat";
 
-const socket = io("ws://localhost:8000");
+const socket = io(`${import.meta.env.VITE_SERVER}`);
 
 const Container = styled.div`
   display: flex;

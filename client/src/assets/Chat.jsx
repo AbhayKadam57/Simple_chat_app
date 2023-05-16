@@ -80,7 +80,7 @@ const ReceiverChat = styled.li`
 `;
 
 const UserName = styled.small`
-  color: ${(props) => `${props.color}`};
+  color: #fff;
   font-weight: 800;
   font-size: 0.7em;
 `;
@@ -127,12 +127,13 @@ const Chat = ({ socket, username, room }) => {
         username: username,
         message: message,
         time: new Date().getHours() + ":" + new Date().getMinutes(),
-        color: `#${Math.floor(Math.random(360))}`,
       };
+      setMessage("");
 
       await socket.emit("send_message", Message);
 
       setChatList((prev) => [...prev, Message]);
+
       setMessage("");
     }
   };
@@ -157,7 +158,7 @@ const Chat = ({ socket, username, room }) => {
             ele.username === username ? (
               <Chats key={id}>
                 <SenderChat>
-                  <UserName color={ele.color}>{ele.username}</UserName>
+                  <UserName>{ele.username}</UserName>
                   {ele.message} <Time move="right">{ele.time}</Time>
                 </SenderChat>
               </Chats>
@@ -174,8 +175,12 @@ const Chat = ({ socket, username, room }) => {
         </Messages>
 
         <Input onSubmit={(e) => handleSubmit(e)}>
-          <input type="text" onChange={(e) => setMessage(e.target.value)} />
-          <button>Enter</button>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button type="submit">Enter</button>
         </Input>
       </Chatbox>
     </Container>
